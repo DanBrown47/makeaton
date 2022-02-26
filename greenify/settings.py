@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     "crispy_tailwind",
 
     # user apps
-    'authentication'
+    'authentication',
+    'tokens',
 ]
 
 MIDDLEWARE = [
