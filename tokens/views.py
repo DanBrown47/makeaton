@@ -1,7 +1,29 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 import folium
 import geocoder
+from .forms import TokenForm
+from .models import Token
 # Create your views here.
+
+
+def token(request):
+    form = TokenForm()
+    if request.method == 'POST':
+        raised_by = request.user
+        images = request.FILES.get('image')
+        message = request.POST['message']
+        lat = request.POST['lat']
+        lng = request.POST['lng']
+        Token.objects.create(
+            raised_by=raised_by,
+            images=images,
+            lat=lat,
+            lng=lng,
+            message=message
+        )
+        
+    return render(request, 'token.html', {'form' : form})
+
 
 
 def map(request):
@@ -11,7 +33,6 @@ def map(request):
     lat = location.lat
     lng = location.lng
     country = location.country
-    print(lat, '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
     # Create Map Object
     map = folium.Map(location=[19, -12], zoom_start=2)
 

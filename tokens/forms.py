@@ -1,6 +1,10 @@
-# from django.contrib.gis import forms
+from django import forms
+from .models import Token
 
-# class MyGeoForm(forms.Form):
-#     point = forms.GeometryField(widget=
-#         forms.OSMWidget(attrs={'map_width': 800, 'map_height': 500}))
-    
+class TokenForm(forms.ModelForm):
+    class Meta:
+        model = Token
+        fields = (
+            'images',
+            'message',
+            )

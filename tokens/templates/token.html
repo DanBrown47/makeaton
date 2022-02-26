@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style type="text/css">
+      #map {
+        width: 700px;
+        height: 500px;
+      }
+    </style>
+    <script
+      type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticket</title>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="file" name="image" />
+      <textarea name="message" id="" cols="30" rows="10"></textarea>
+      <input type="text" id="lat" readonly="yes" name='lat' />
+      <br />
+      <input type="text" id="lng" readonly="yes"  name='lng' />
+      <button type="button" id='current'>Current Location</button>
+      <button type="button" id='choose'>choose from map</button>
+      <button type="submit">Submit</button>
+    </form>
+    <script type="text/javascript" src="{% static 'js/map.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/currentlocation.js' %}"></script>
+  </body>
+</html>
