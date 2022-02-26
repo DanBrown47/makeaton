@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %} 
+
+<h1>Greenify</h1>
+
+<a href="{% url 'authentication:register-user' %}">Get Started as user</a>
+<br>
+<a href="{% url 'authentication:register-voluntere' %}">Get Started as voluntere</a>
+<br>
+<a href="{% url 'authentication:register-admin' %}">Get Started as admin</a>
+<br>
+<a href="{% url 'authentication:login' %}">Login</a>
+
+
+{% endblock content %}
