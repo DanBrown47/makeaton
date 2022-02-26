@@ -19,4 +19,4 @@ def map(request):
                   popup=country).add_to(map)
     # Get HTML Representation of Map Object
     map = map._repr_html_()
-    return render(request, 'map.html', {'map' : map})
+    return render(request, 'map.html')

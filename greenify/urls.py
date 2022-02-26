@@ -8,4 +8,5 @@ urlpatterns = [
     path('starter/', TemplateView.as_view(template_name='starter.html'), name='starter'),
     path('admin/', admin.site.urls),
     path('authentication/', include('authentication.urls', namespace='authentication')),
+    path('tokens/', include('tokens.urls', namespace='tokens')),
 ]
