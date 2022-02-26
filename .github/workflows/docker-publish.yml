@@ -9,6 +9,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
+  REPO_NAME: danbrown47/makeaton
 
 
 jobs:
@@ -48,7 +49,7 @@ jobs:
         run: sudo /usr/bin/docker login -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ghcr.io 
       - name: Push image
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
+          IMAGE_ID=ghcr.io/${{ env.REPO_NAME }}/$IMAGE_NAME
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           # Strip git ref prefix from version
