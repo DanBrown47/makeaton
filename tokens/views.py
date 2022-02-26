@@ -1,7 +1,6 @@
 from django.shortcuts import redirect, render
 import folium
 import geocoder
-from .forms import TokenForm
 from .models import Token
 from django.contrib.auth.decorators import login_required
 
@@ -10,9 +9,9 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def create_token(request):
-    form = TokenForm()
     if request.method == 'POST':
         raised_by = request.user
+        number = request.POST['number']
         images = request.FILES.get('image')
         message = request.POST['message']
         lat = request.POST['lat']
@@ -22,10 +21,12 @@ def create_token(request):
             images=images,
             lat=lat,
             lng=lng,
-            message=message
+            message=message,
+            number=number
         )
+        return redirect('../')
 
-    return render(request, 'token_create.html', {'form': form})
+    return render(request, 'token_create.html')
 
 
 def list_token(request):

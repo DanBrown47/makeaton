@@ -15,6 +15,7 @@ class Token(models.Model):
         max_digits=11, decimal_places=7, null=True, blank=True)
     images = models.ImageField(upload_to=upload_image)
     message = models.TextField(max_length=200)
+    number = models.TextField(max_length=14)
     is_done = models.BooleanField(default=False)
     raised_date = models.DateField(null=True, blank=True)
     done_date = models.DateField(null=True, blank=True)
