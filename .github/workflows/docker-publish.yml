@@ -44,12 +44,23 @@ jobs:
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
-      - name: Build and push Docker image
-        id: build-and-push
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+      - name: Log into registry
+        run: sudo /usr/bin/docker login -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ghcr.io 
+      - name: Push image
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          # Strip git ref prefix from version
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          # Strip "v" prefix from tag name
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          # Use Docker `latest` tag convention
+          [ "$VERSION" == "main" ] && VERSION=latest
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+          sudo /usr/bin/docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          sudo /usr/bin/docker tag $IMAGE_NAME $IMAGE_ID:$VERSION$NOW$SHORT_SHA
+          sudo /usr/bin/docker push $IMAGE_ID:$VERSION
+          sudo /usr/bin/docker push $IMAGE_ID:$VERSION$NOW$SHORT_SHA
 
