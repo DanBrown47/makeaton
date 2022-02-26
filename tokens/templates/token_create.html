@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+{% include 'navbar.html' %}
+<style type="text/css">
+
+</style>
+<script
+  type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js"
+></script>
+<div class="w-full justify-center absolute z-10">
+  <div id="map" class="w-1/2 h-96"></div>
+</div>
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+<section class="text-gray-600 body-font relative z-0">
+  <div class="w-1/2 container px-5 py-24 mx-auto flex">
+    <div class="bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 shadow-md">
+      <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">Create Token</h2>
+      <p class="leading-relaxed mb-5 text-gray-600">Post-ironic portland shabby chic echo park, banjo fashion axe</p>
+      <div class="relative mb-4">
+        <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
+        <input type="email" id="email" name="email" class="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      </div>
+      <label for="email" class="leading-7 text-sm text-gray-600">Image</label>
+      <input type="file" name="image" />
+      <input type="text" id="lat" readonly="yes" name='lat' hidden />
+      <br />
+      <input type="text" id="lng" readonly="yes"  name='lng' hidden/>
+      <label for="email" class="leading-7 text-sm text-gray-600">Location</label>
+      <div class="flex mb-5">
+        <button class="w-full mx-2 text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-md" type="button" id='current'>Current Location</button>
+        <button class="w-full mx-2 text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-md" type="button" id='choose'>choose from map</button>
+      </div>
+      <div class="relative mb-4">
+        <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
+        <textarea id="message" name="message" class="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+      </div>
+      <button class="text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg" type="submit">Submit</button>
+      <p class="text-xs text-gray-500 mt-3">Chicharrones blog helvetica normcore iceland tousled brook viral artisan.</p>
+    </div>
+  </div>
+</section>
+</form>
+
+<script type="text/javascript" src="{% static 'js/map.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/currentlocation.js' %}"></script>
+
+{% endblock content %}
+

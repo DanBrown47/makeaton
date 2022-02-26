@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import token, token_list
+from .views import detail_token, list_token, create_token
 
 app_name = 'tokens'
 
 urlpatterns = [
-    path('', token, name='token'),
-    path('token_list/', token_list, name='totoken_listken')
+    path('', list_token, name='list'),
+    path('<int:id>/', detail_token, name='detail'),
+    path('create/', create_token, name='create')
 ]

@@ -3,10 +3,13 @@ import folium
 import geocoder
 from .forms import TokenForm
 from .models import Token
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 
-def token(request):
+@login_required
+def create_token(request):
     form = TokenForm()
     if request.method == 'POST':
         raised_by = request.user
@@ -21,12 +24,19 @@ def token(request):
             lng=lng,
             message=message
         )
-        
-    return render(request, 'token.html', {'form' : form})
 
-def token_list(request):
-    lists = Token.objects.all()
-    return render(request, 'token_list.html', {'lists':lists})
+    return render(request, 'token_create.html', {'form': form})
+
+
+def list_token(request):
+    tokens = Token.objects.all()
+    return render(request, 'token_list.html', {'tokens': tokens})
+
+
+def detail_token(request, id):
+    token = Token.objects.get(id=id)
+
+    return render(request, 'token_detail.html', {'token': token})
 
 
 # def map(request):
@@ -37,7 +47,7 @@ def token_list(request):
 #     lng = location.lng
 #     country = location.country
 #     # Create Map Object
-#     map = folium.Map(location=[19, -12], zoom_start=2)
+    # map = folium.Map(location=[19, -12], zoom_start=2)
 
 #     folium.Marker([lat, lng], tooltip='Click for more',
 #                   popup=country).add_to(map)
