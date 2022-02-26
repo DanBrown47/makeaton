@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
+{% load tailwind_filters %}
 {% block content %}
-
-<h1>Register Admin</h1>
-<hr>
-
-<form method="post">
-
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Register">
-    
+{% include 'navbar.html' %}
+<section class="text-gray-600 body-font overflow-hidden">
+  <div class="flex justify-center px-5 py-24 mx-auto">
+      <form method="post" class="p-10 shadow-xl rounded-lg">
+        <h1 class="font-bold text-lg text-center">Register User</h1>
+  {% csrf_token %} {{ form | crispy }}
+  <div class="flex justify-center">
+    <input type="submit" value="Create"  class="bg-green-400 text-white px-4 py-2 rounded-lg hover:bg-green-500 mt-10" />
+  </div>
+</div>
 </form>
-
+</div>
+</section>
 {% endblock content %}
