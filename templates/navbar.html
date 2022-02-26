@@ -7,7 +7,7 @@
         <span class="ml-3 text-xl">Greenify</span>
       </a>
       {% if user.is_authenticated %}
-      <span class="mr-5">Logged in as : {{ user }}</span>
+      <span class="mr-5">Logged in as : {{ user }}  
       <a href="{% url 'authentication:logout' %}" class="inline-flex items-center bg-red-400 border-0 py-1 px-3 focus:outline-none hover:bg-red-500 rounded text-base text-white mt-4 md:mt-0">
         Logout
         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
@@ -15,6 +15,7 @@
         </svg>
       </a>
       {% else %}
+      <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_J0kEFSuV8jCaio" async> </script> </form>
       <a href="{% url 'authentication:login' %}" class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
         Login
         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
@@ -22,5 +23,7 @@
         </svg>
       </a>
       {% endif %}
+      
     </div>
+    
   </header>
