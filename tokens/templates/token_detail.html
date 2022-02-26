@@ -53,7 +53,26 @@
         <iframe class="lg:h-48 md:h-36 w-full object-cover object-center" src="https://google.com/maps?q={{token.lat}},{{token.lng}}&z=15&output=embed" loading="lazy" allowfullscreen alt="blog"></iframe>
 
         <div class="flex pt-10">
-          <button class="flex ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">Open Directions</button>
+            {% if token.is_done == True %}
+            This token completed by
+            {% elif i == 1 %}
+            <form action="../catch-token/" method="post">
+              {% csrf_token %}
+              <button type="submit" value="{{token.id}}" name="catch" class="flex ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">Catch Token</button>
+            </form>
+            
+            {% elif user == catched_by %}
+            <form action="../complete-token/" method="post">
+              {% csrf_token %}
+              <button type="submit" value="{{token.id}}" name="complete" class="flex ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">Completed</button>
+            </form>
+            <form action="../cancel-token/" method="post">
+              {% csrf_token %}
+              <button type="submit" value="{{token.id}}" name="cancel" class="flex ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">Cancel</button>
+            </form>
+              {% elif i == 0 %}
+            This token catched by {{catched_by}}
+            {% endif %}
         </div>
       </div>
     </div>

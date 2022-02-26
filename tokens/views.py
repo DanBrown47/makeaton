@@ -1,8 +1,9 @@
 from django.shortcuts import redirect, render
 import folium
 import geocoder
-from .models import Token
+from .models import CatchToken, Token
 from django.contrib.auth.decorators import login_required
+from authentication.models import User
 
 # Create your views here.
 
@@ -28,17 +29,54 @@ def create_token(request):
 
     return render(request, 'token_create.html')
 
-
+@login_required
 def list_token(request):
     tokens = Token.objects.all()
     return render(request, 'token_list.html', {'tokens': tokens})
 
-
+@login_required
 def detail_token(request, id):
     token = Token.objects.get(id=id)
+    try:
+        catch_token = CatchToken.objects.get(token=token)
+        i=0
+        catched_by = catch_token.catched_by
+    except:
+        i=1
+        catched_by = ''
+    context = {
+        'token': token, 'id':id, 'i':i, 'catched_by':catched_by, 'user':request.user
+        }
 
-    return render(request, 'token_detail.html', {'token': token})
+    return render(request, 'token_detail.html', context=context)
 
+@login_required
+def catch_token(request):
+    if request.method == 'POST':
+        catch = int(request.POST['catch'])
+        user = User.objects.get(username=request.user)
+        token = Token.objects.get(id=catch)
+        CatchToken.objects.create(
+            catched_by = user,
+            token = token
+        )
+        return redirect(f'../{catch}')
+
+def complete_token(request):
+    complete = int(request.POST['complete'])
+    token = Token.objects.get(id=complete)
+    token.is_done = True
+    token.save()
+    catch_token = CatchToken.objects.get(token=Token.objects.get(id=complete))
+    catch_token.delete()
+    return redirect(f'../{complete}')
+
+def cancel_token(request):
+    cancel = int(request.POST['cancel'])
+    catch_token = CatchToken.objects.get(token=Token.objects.get(id=cancel))
+    catch_token.delete()
+    return redirect(f'../{cancel}')
+        
 
 # def map(request):
 #     # form = MyGeoForm()

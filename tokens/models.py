@@ -19,3 +19,7 @@ class Token(models.Model):
     is_done = models.BooleanField(default=False)
     raised_date = models.DateField(null=True, blank=True)
     done_date = models.DateField(null=True, blank=True)
+
+class CatchToken(models.Model):
+    catched_by = models.OneToOneField(User, on_delete=models.CASCADE)
+    token = models.OneToOneField(Token, on_delete=models.CASCADE)
