@@ -6,7 +6,7 @@ from .utils import upload_image
 
 
 class Token(models.Model):
-    category = models.CharField(max_length=150, default='Plastic', choices=(('Plastic', 'Plastic'), (
+    category = models.CharField(max_length=150, choices=(('Plastic', 'Plastic'), (
         'Bio-degradable', 'Bio-degradable'), ('Medical or Clinical Wastes', 'Medical or Clinical Wastes'), ('Industrial Sources of Wastes', 'Industrial Sources of Wastes'), ('Electronic sources of waste', 'Electronic sources of waste')))
     raised_by = models.ForeignKey(User, on_delete=models.CASCADE)
     lat = models.DecimalField(

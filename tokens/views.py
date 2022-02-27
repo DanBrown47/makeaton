@@ -1,6 +1,8 @@
 from django.shortcuts import redirect, render
 import folium
 import geocoder
+
+from tokens.forms import TokenForm
 from .models import CatchToken, Token
 from django.contrib.auth.decorators import login_required
 from authentication.models import User
@@ -17,16 +19,17 @@ def create_token(request):
         message = request.POST['message']
         lat = request.POST['lat']
         lng = request.POST['lng']
+        category = request.POST['category']
         Token.objects.create(
             raised_by=raised_by,
             images=images,
             lat=lat,
             lng=lng,
             message=message,
-            number=number
+            number=number,
+            category=category
         )
         return redirect('../')
-
     return render(request, 'token_create.html')
 
 
@@ -98,6 +101,8 @@ def user_tokens(request):
         tokens = Token.objects.filter(raised_by=request.user.id)
     context = {'tokens': tokens}
     return render(request, 'user_tokens.html', context)
+
+
 # def map(request):
 #     # form = MyGeoForm()
 #     address = 'kinassery' #the address that want to display in page

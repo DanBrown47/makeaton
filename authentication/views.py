@@ -7,9 +7,9 @@ def register_admin(request):
     if request.POST:
         form = AdminCreationForm(request.POST)
         if form.is_valid():
-            form.save(commit=False)
-            form.is_admin = True
-            form.save()
+            d = form.save(commit=False)
+            d.is_admin = True
+            d.save()
             return redirect('authentication:login')
     form = AdminCreationForm()
 
@@ -22,9 +22,9 @@ def register_voluntere(request):
     if request.POST:
         form = VoluntereCreationForm(request.POST)
         if form.is_valid():
-            form.save(commit=False)
-            form.is_voluntere = True
-            form.save()
+            d = form.save(commit=False)
+            d.is_voluntere = True
+            d.save()
             return redirect('authentication:login')
     form = VoluntereCreationForm()
 
@@ -37,9 +37,9 @@ def register_user(request):
     if request.POST:
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save(commit=False)
-            form.is_user = True
-            form.save()
+            d = form.save(commit=False)
+            d.is_user = True
+            d.save()
             return redirect('authentication:login')
     form = UserCreationForm()
 

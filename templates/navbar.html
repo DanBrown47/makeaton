@@ -7,14 +7,20 @@
         <span class="ml-3 text-xl">Greenify</span>
       </a>
       {% if user.is_authenticated %}
-      <a href="{% url 'tokens:user-tokens' %}">My Tokens</a>
-      <span class="mr-5">Logged in as : {{ user }}  
-      <a href="{% url 'authentication:logout' %}" class="inline-flex items-center bg-red-400 border-0 py-1 px-3 focus:outline-none hover:bg-red-500 rounded text-base text-white mt-4 md:mt-0">
-        Logout
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-          <path d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg>
-      </a>
+      {% comment %} <a href="{% url 'tokens:user-tokens' %}">My Tokens</a> {% endcomment %}
+        {% if user.is_admin %}
+          <a href="{% url 'volunteres:list' %}">Volunteres</a>
+          <a href="{% url 'tokens:list' %}">Tokens</a>
+        {% endif %}
+      <div class="flex flex-col">
+        <span class="mr-5">Logged in as : {{ user }}  </span>
+          <a href="{% url 'authentication:logout' %}" class="inline-flex items-center bg-red-400 border-0 py-1 px-3 focus:outline-none hover:bg-red-500 rounded text-base text-white mt-4 md:mt-0">
+            Logout
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </a>
+      </div>
       {% else %}
       <a href="{% url 'authentication:login' %}" class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
         Login

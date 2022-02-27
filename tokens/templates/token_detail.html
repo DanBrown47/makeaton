@@ -12,23 +12,24 @@
       <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
         <a href="{% url  'tokens:list' %}" class="text-green-400 text-xl font-medium mb-2">Back</a>
         <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{ token.category }}</h1>
-        <div class="flex mb-4">
-          <span class="flex items-center">
+        <div class="flex flex-col mb-4">
             <span class="text-gray-600">Raised By: {{ token.raised_by }}</span>
             <span class="text-gray-600">Raised On: {{ token.raised_date }}</span>
-          </span>
+            <span class="text-gray-600">Extra info: {{  token.message }}</span>
         </div>
-        <p class="leading-relaxed mb-4">Extra info: {{  token.message }}</p>
+        <p class="leading-relaxed mb-4"></p>
         <iframe class="lg:h-48 md:h-36 w-full object-cover object-center" src="https://google.com/maps?q={{token.lat}},{{token.lng}}&z=15&output=embed" loading="lazy" allowfullscreen alt="blog"></iframe>
 
         <div class="flex pt-10">
             {% if token.is_done == True %}
             This token completed by
             {% elif i == 1 %}
-            <form action="../catch-token/" method="post">
-              {% csrf_token %}
-              <button type="submit" value="{{token.id}}" name="catch" class="flex ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">Catch Token</button>
-            </form>
+            {% if request.user.is_voluntere %}
+              <form action="../catch-token/" method="post">
+                {% csrf_token %}
+                <button type="submit" value="{{token.id}}" name="catch" class="flex ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">Catch Token</button>
+              </form>
+            {% endif %}
             
             {% elif user == catched_by %}
             <form action="../complete-token/" method="post">

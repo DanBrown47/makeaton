@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('authentication/', include('authentication.urls', namespace='authentication')),
     path('tokens/', include('tokens.urls', namespace='tokens')),
+    path('volunteres/', include('volunteres.urls', namespace='volunteres')),
 
 ]
 
