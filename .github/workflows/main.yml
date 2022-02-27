@@ -11,7 +11,7 @@ env:
   IMAGE_NAME: greenify
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu_latest
     steps:
       - uses: actions/checkout@v2
       - name: Which Runner
