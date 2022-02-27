@@ -1,6 +1,6 @@
 asgiref==3.5.0
 autopep8==1.6.0
-backports.zoneinfo==0.2.1
+# backports.zoneinfo==0.2.1
 branca==0.4.2
 certifi==2021.10.8
 charset-normalizer==2.0.12
