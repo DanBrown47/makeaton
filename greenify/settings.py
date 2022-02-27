@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['0.0.0.0', '59.96.56.234', '127.0.0.1']
 
@@ -145,6 +145,8 @@ AUTH_USER_MODEL = 'authentication.User'
 
 LOGIN_URL = '/authentication/login'
 
-LOGIN_REDIRECT_URL = '/success/'
+LOGIN_REDIRECT_URL = 'tokens:list'
 
 LOGOUT_REDIRECT_URL = '/'
+
+handler404 = 'my_app.views.handler404'

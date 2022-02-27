@@ -46,3 +46,7 @@ def register_user(request):
     context = {'form': form}
 
     return render(request, 'authentication/register_user.html', context)
+
+
+def error(request, *args):
+    return render(request, '404.html')
