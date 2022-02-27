@@ -1,0 +1,9 @@
+version: '3'
+services:
+  web:
+    # Defining main services
+    image: 'ghcr.io/danbrown47/makeaton/greenify:latest'
+
+    # Mapping of ports
+    ports:
+      - "8000:8000"
