@@ -10,4 +10,5 @@ urlpatterns = [
     path('catch-token/', catch_token, name='catch-token'),
     path('complete-token/', complete_token, name='complete-token'),
     path('cancel-token/', cancel_token, name='cancel-token'),
+    path('user/', user_tokens, name='user-tokens')
 ]
